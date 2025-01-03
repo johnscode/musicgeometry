@@ -11,6 +11,8 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+  private var gameScene: GameScene?
+  
   override func loadView() {
     super.loadView()
     
@@ -21,23 +23,33 @@ class GameViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    if let view = self.view as! SKView? {
-      let scene = GameScene(size: view.bounds.size)
-      scene.scaleMode = .aspectFill
-      view.presentScene(scene)
-      
-      view.ignoresSiblingOrder = true
-      view.showsFPS = true
-      view.showsNodeCount = true
-      
-      view.ignoresSiblingOrder = true
-      view.showsFPS = true
-      view.showsNodeCount = true
-      
-      view.isMultipleTouchEnabled = true
-    }
+    setupScene()
   }
   
+  private func setupScene() {
+      if let view = self.view as? SKView {
+          let scene = GameScene(size: view.bounds.size)
+          gameScene = scene
+          scene.scaleMode = .resizeFill // Change this from aspectFill
+          view.presentScene(scene)
+          
+          view.ignoresSiblingOrder = true
+          view.showsFPS = true
+          view.showsNodeCount = true
+          view.isMultipleTouchEnabled = true
+      }
+  }
+  
+  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    
+    coordinator.animate { [weak self] _ in
+        if let view = self?.view as? SKView {
+            view.bounds = CGRect(origin: .zero, size: size)
+            self?.gameScene?.size = size
+        }
+    }
+}
   override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
     if UIDevice.current.userInterfaceIdiom == .phone {
       return .allButUpsideDown

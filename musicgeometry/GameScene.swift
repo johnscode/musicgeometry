@@ -10,9 +10,9 @@ import GameplayKit
 
 class GameScene: SKScene, ChromaticScaleNodeDelegate {
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
-  
+//    private var label : SKLabelNode?
+//    private var spinnyNode : SKShapeNode?
+  private var chromaticScaleNode: ChromaticScaleNode?
   private var viewSize: CGSize
   private let audioControl = AudioControl()
   
@@ -30,18 +30,40 @@ class GameScene: SKScene, ChromaticScaleNodeDelegate {
   
   private func computeScaleSize(viewSize: CGSize) -> Double {
     let minDim = min(viewSize.height, viewSize.width)
-    return minDim*0.4
+    // Adjust the multiplier based on orientation
+    let multiplier: CGFloat = viewSize.width > viewSize.height ? 0.3 : 0.4
+    return minDim * multiplier
   }
   
   override func didMove(to view: SKView) {
         self.audioControl.start()
-      // Create the polygon node
-    let radius = computeScaleSize(viewSize: viewSize)
-      let polygonNode = ChromaticScaleNode(radius: radius, vertexRadius: 20, data: chromaticScale.notes)
-      polygonNode.position = CGPoint(x: frame.midX, y: frame.midY)
-      addChild(polygonNode)
-      polygonNode.delegate = self
+    setupChromaticScale()
     }
+  
+  override func didChangeSize(_ oldSize: CGSize) {
+      super.didChangeSize(oldSize)
+      setupChromaticScale()
+  }
+  
+  private func setupChromaticScale() {
+      // Remove existing scale node if it exists
+      chromaticScaleNode?.removeFromParent()
+      
+      let radius = computeScaleSize(viewSize: self.size)
+    let vertexRadius = computeVertexRadius(viewSize: self.size)
+      chromaticScaleNode = ChromaticScaleNode(radius: radius, vertexRadius: vertexRadius, data: chromaticScale.notes)
+      if let polygonNode = chromaticScaleNode {
+          polygonNode.position = CGPoint(x: frame.midX, y: frame.midY)
+          addChild(polygonNode)
+          polygonNode.delegate = self
+      }
+  }
+  
+  private func computeVertexRadius(viewSize: CGSize) -> CGFloat {
+      let minDim = min(viewSize.height, viewSize.width)
+      return minDim * 0.03 // Adjust this multiplier as needed
+  }
+  
   
   // MARK: polygon delegate
   func chromaticScaleNode(_ scaleNode: ChromaticScaleNode, didTapVertexAt index: Int) {
@@ -64,33 +86,19 @@ class GameScene: SKScene, ChromaticScaleNodeDelegate {
     
     
     func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
+
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
+
     }
     
     func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
+
         
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
