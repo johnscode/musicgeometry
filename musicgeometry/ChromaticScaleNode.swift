@@ -50,7 +50,9 @@ private var connectionLines: [SKShapeNode] = []
     private func setupPolygon() {
         // Create the polygon outline
         let polygonPath = CGMutablePath()
-        let vertices = calculateVertexPositions()
+      let locations = calculateVertexPositions()
+      let vertices = locations.0
+      let labelPositions = locations.1
         
         // Draw the polygon outline
         polygonPath.move(to: vertices[0])
@@ -74,11 +76,21 @@ private var connectionLines: [SKShapeNode] = []
           vertexNode.fillColor = scaleNote.color
             vertexNodes.append(vertexNode)
             addChild(vertexNode)
+          
+          let label = SKLabelNode(text: scaleNote.note.note.UIName)
+          label.name = scaleNote.note.name
+          label.position = labelPositions[index]
+          label.fontName = "Poppins-SemiBold"
+          label.fontSize = 12
+          label.horizontalAlignmentMode = .center
+          label.verticalAlignmentMode = .center
+          addChild(label)
         }
     }
     
-    private func calculateVertexPositions() -> [CGPoint] {
+  private func calculateVertexPositions() -> ([CGPoint],[CGPoint]) {
         var vertices: [CGPoint] = []
+      var labels: [CGPoint] = []
         let angleStep = 2.0 * CGFloat.pi / 12.0
         
         // Start from the top (negative pi/2 to align first vertex at top)
@@ -88,10 +100,13 @@ private var connectionLines: [SKShapeNode] = []
             let angle = startAngle - (CGFloat(i) * angleStep)
             let x = radius * cos(angle)
             let y = radius * sin(angle)
+          let dx = vertexRadius * 1.8 * cos(angle)
+          let dy = vertexRadius * 1.8 * sin(angle)
             vertices.append(CGPoint(x: x, y: y))
+          labels.append(CGPoint(x: x+dx, y: y+dy))
         }
         
-        return vertices
+      return (vertices, labels)
     }
     
     private func createVertexNode(at position: CGPoint) -> SKShapeNode {
