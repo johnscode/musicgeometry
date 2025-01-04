@@ -22,18 +22,18 @@ class ScaleNote {
   
   static private func colorForNote(note: MidiNote) -> UIColor {
     switch note.note {
-    case .C:      return UIColor(red: 1.00, green: 0.00, blue: 0.00, alpha: 1.0) // Red
-    case .Cs: return UIColor(red: 1.00, green: 0.27, blue: 0.00, alpha: 1.0) // Red-Orange
-    case .D:      return UIColor(red: 1.00, green: 0.55, blue: 0.00, alpha: 1.0) // Orange
-    case .Ds: return UIColor(red: 1.00, green: 0.77, blue: 0.00, alpha: 1.0) // Orange-Yellow
-    case .E:      return UIColor(red: 1.00, green: 1.00, blue: 0.00, alpha: 1.0) // Yellow
-    case .F:      return UIColor(red: 0.00, green: 1.00, blue: 0.00, alpha: 1.0) // Green
-    case .Fs: return UIColor(red: 0.00, green: 1.00, blue: 0.50, alpha: 1.0) // Green-Blue
-    case .G:      return UIColor(red: 0.00, green: 0.00, blue: 1.00, alpha: 1.0) // Blue
-    case .Gs: return UIColor(red: 0.29, green: 0.00, blue: 0.51, alpha: 1.0) // Blue-Indigo
-    case .A:      return UIColor(red: 0.58, green: 0.00, blue: 0.83, alpha: 1.0) // Indigo
-    case .As: return UIColor(red: 0.75, green: 0.00, blue: 0.83, alpha: 1.0) // Indigo-Violet
-    case .B:      return UIColor(red: 0.93, green: 0.51, blue: 0.93, alpha: 1.0) // Violet
+    case .C:      return UIColor(hex: "FF0000") //(red: 1.00, green: 0.00, blue: 0.00, alpha: 1.0) // Red
+    case .Cs: return UIColor(hex: "20B2AA") //return UIColor(red: 1.00, green: 0.27, blue: 0.00, alpha: 1.0) // Red-Orange
+    case .D:  return UIColor(hex: "FFA500") //return UIColor(red: 1.00, green: 0.55, blue: 0.00, alpha: 1.0) // Orange
+    case .Ds: return UIColor(hex: "0000FF") //return UIColor(red: 1.00, green: 0.77, blue: 0.00, alpha: 1.0) // Orange-Yellow
+    case .E: return UIColor(hex: "FFFF00") //return UIColor(red: 1.00, green: 1.00, blue: 0.00, alpha: 1.0) // Yellow
+    case .F: return UIColor(hex: "FF1493") //return UIColor(red: 0.00, green: 1.00, blue: 0.00, alpha: 1.0) // Green
+    case .Fs: return UIColor(hex: "00FF00") //return UIColor(red: 0.00, green: 1.00, blue: 0.50, alpha: 1.0) // Green-Blue
+    case .G:  return UIColor(hex: "FF4500") //return UIColor(red: 0.00, green: 0.00, blue: 1.00, alpha: 1.0) // Blue
+    case .Gs: return UIColor(hex: "00FFFF") //return UIColor(red: 0.29, green: 0.00, blue: 0.51, alpha: 1.0) // Blue-Indigo
+    case .A:  return UIColor(hex: "FFD700") //return UIColor(red: 0.58, green: 0.00, blue: 0.83, alpha: 1.0) // Indigo
+    case .As: return UIColor(hex: "8A2BE2") //return UIColor(red: 0.75, green: 0.00, blue: 0.83, alpha: 1.0) // Indigo-Violet
+    case .B:  return UIColor(hex: "ADFF2F") //return UIColor(red: 0.93, green: 0.51, blue: 0.93, alpha: 1.0) // Violet
     }
     
   }
