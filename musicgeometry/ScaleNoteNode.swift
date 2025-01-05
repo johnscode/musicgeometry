@@ -65,6 +65,18 @@ class ScaleNoteNode: SKShapeNode {
     fatalError("init(coder:) has not been implemented")
   }
   
+  func simulatePress(duration: TimeInterval = 0.5) {
+    let touchDnAction = SKAction.run {
+      self.handleTouchDown()
+    }
+    let delayAction = SKAction.wait(forDuration: duration)
+    let touchUpAction = SKAction.run {
+      self.handleTouchUp()
+    }
+    let sequence = SKAction.sequence([touchDnAction, delayAction, touchUpAction])
+    self.run(sequence)
+  }
+  
   private func highlight() {
     let scaleUp = SKAction.scale(to: 1.2, duration: 0.1)
     //            let brighten = SKAction.fadeAlpha(to: 1.0, duration: 0.1)
@@ -81,7 +93,7 @@ class ScaleNoteNode: SKShapeNode {
     self.run(group)
   }
   
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  func handleTouchDown() {
     if !_noteEnabled { return }
     print("touchesBegan on note \(scaleNote.note.name) \(_noteEnabled)")
     // Setup long press detection
@@ -91,6 +103,20 @@ class ScaleNoteNode: SKShapeNode {
     }
     highlight()
     self.delegate?.beginTouchNote(scaleNote, at: Date.now)
+  }
+  
+  func handleTouchUp() {
+    if !_noteEnabled { return }
+      // Handle touch ended
+    print("touchesEnded on note \(scaleNote.note.name) \(_noteEnabled)")
+    unhighlight()
+    longPressTimer?.invalidate()
+    longPressTimer = nil
+    self.delegate?.endTouchNote(scaleNote, at: Date.now)
+  }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    handleTouchDown()
   }
   
   override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -104,13 +130,7 @@ class ScaleNoteNode: SKShapeNode {
   }
   
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    if !_noteEnabled { return }
-      // Handle touch ended
-    print("touchesEnded on note \(scaleNote.note.name) \(_noteEnabled)")
-    unhighlight()
-    longPressTimer?.invalidate()
-    longPressTimer = nil
-    self.delegate?.endTouchNote(scaleNote, at: Date.now)
+    handleTouchUp()
   }
   
   override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
