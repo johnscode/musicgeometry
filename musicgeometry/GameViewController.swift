@@ -11,7 +11,7 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
-  private var gameScene: GameScene?
+  private var gameScene: CMajorScaleScene?
   
   override func loadView() {
     super.loadView()
@@ -28,7 +28,8 @@ class GameViewController: UIViewController {
   
   private func setupScene() {
       if let view = self.view as? SKView {
-          let scene = GameScene(size: view.bounds.size)
+//          let scene = ChromaticScaleScene(size: view.bounds.size)
+        let scene = CMajorScaleScene(size: view.bounds.size)
           gameScene = scene
           scene.scaleMode = .resizeFill // Change this from aspectFill
           view.presentScene(scene)

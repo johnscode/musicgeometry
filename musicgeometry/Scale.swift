@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScaleNote {
+class ScaleNote: Equatable {
   var note: MidiNote
   var color: UIColor
   init(note: MidiNote, color: UIColor) {
@@ -37,6 +37,10 @@ class ScaleNote {
     }
     
   }
+  
+  static func == (lhs: ScaleNote, rhs: ScaleNote) -> Bool {
+    return lhs.note.name == rhs.note.name
+      }
 }
 
 class Scale {
@@ -64,6 +68,18 @@ class Scale {
       ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .A)),
       ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .As)),
       ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .B)),
+    ])
+  }
+  
+  static func createCMajorScale() -> Scale {
+    return Scale(notes: [
+        ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .C)),
+        ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .D)),
+        ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .E)),
+        ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .F)),
+        ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .G)),
+        ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .A)),
+        ScaleNote.makeScaleNote(note: MidiNote(octave: .four, note: .B)),
     ])
   }
   

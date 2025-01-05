@@ -29,9 +29,22 @@
 		52240BBA2D24BC21001E0309 /* musicgeometryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = musicgeometryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		5244E3402D2A009900A88B46 /* Exceptions for "musicgeometry" folder in "musicgeometry" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 52240B962D24BC20001E0309 /* musicgeometry */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		52240B992D24BC20001E0309 /* musicgeometry */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5244E3402D2A009900A88B46 /* Exceptions for "musicgeometry" folder in "musicgeometry" target */,
+			);
 			path = musicgeometry;
 			sourceTree = "<group>";
 		};
@@ -397,6 +410,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SX76ATCXZG;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = musicgeometry/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -425,6 +439,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SX76ATCXZG;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = musicgeometry/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
