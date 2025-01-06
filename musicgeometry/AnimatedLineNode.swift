@@ -12,12 +12,12 @@ class AnimatedLineNode: SKShapeNode {
     private var toPoint: CGPoint
     private var progress: CGFloat = 0
     
-    init(from: CGPoint, to: CGPoint) {
+    init(from: CGPoint, to: CGPoint, strokeColor: UIColor = .white) {
         self.fromPoint = from
         self.toPoint = to
         super.init()
         
-        self.strokeColor = .white
+        self.strokeColor = strokeColor
         self.lineWidth = 2.0
         self.lineCap = .round
         

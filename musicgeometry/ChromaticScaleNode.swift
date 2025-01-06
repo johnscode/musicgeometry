@@ -223,6 +223,36 @@ class ChromaticScaleNode: SKNode {
     connectionLines.removeAll()
   }
   
+  func animateConnectionsBetweenTwoVertices(start: ScaleNoteNode, end: ScaleNoteNode,
+                                              lineColor: SKColor = .white,
+                                              lineWidth: CGFloat = 2.0,
+                                              duration: TimeInterval = 1.0) {
+//    clearConnectionLines()
+    
+    let lineNode = AnimatedLineNode(from: start.position, to: end.position, strokeColor: lineColor)
+    connectionLines.append(lineNode)
+    addChild(lineNode)
+    lineNode.animate(duration: duration)
+  }
+
+  func animateConnectionsBetweenTwoVertices(start: Int, end: Int,
+                                              lineColor: SKColor = .white,
+                                              lineWidth: CGFloat = 2.0,
+                                              duration: TimeInterval = 1.0) {
+//    clearConnectionLines()
+    
+    let normalizedStartIndex = start % vertexNodes.count
+    let normalizedEndIndex = end % vertexNodes.count
+
+    guard let startNode = getVertexNode(at: normalizedStartIndex) else {return}
+    guard let endNode = getVertexNode(at: normalizedEndIndex) else {return}
+    
+    let lineNode = AnimatedLineNode(from: startNode.position, to: endNode.position, strokeColor: lineColor)
+    connectionLines.append(lineNode)
+    addChild(lineNode)
+    lineNode.animate(duration: duration)
+  }
+  
   func animateConnectionsBetweenThirdVertices(startingAt startIndex: Int,
                                               lineColor: SKColor = .white,
                                               lineWidth: CGFloat = 2.0,
